@@ -13,6 +13,8 @@ import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+
+//import butterknife.BindView;
 import ru.rinatn.horoscope.R;
 import ru.rinatn.horoscope.model.Forecast;
 import ru.rinatn.horoscope.model.Profile;
@@ -20,7 +22,13 @@ import ru.rinatn.horoscope.service.ProfileService;
 import ru.rinatn.horoscope.ui.loader.LoaderActivity;
 import ru.rinatn.horoscope.ui.profile.ProfileActivity;
 
-public class ForecastActivity extends AppCompatActivity {
+public class ForecastActivity extends AppCompatActivity
+{
+    //@BindView(R.id.title)
+    TextView title;
+
+    //@BindView(R.id.text)
+    TextView text;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,10 +77,7 @@ public class ForecastActivity extends AppCompatActivity {
                 @Override
                 public void onChanged(@Nullable Forecast fore)
                 {
-                    TextView title = (TextView) findViewById(R.id.title);
                     title.setText("Овен");
-
-                    TextView text = (TextView) findViewById(R.id.text);
                     text.setText(fore.getText());
                 }
             });
