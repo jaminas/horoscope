@@ -7,19 +7,18 @@ import lombok.Data;
 @Data
 public class Forecast
 {
-    int id;
-
-    int zodiac_id;
-
-    int category_id;
-
-    int locale_id;
-
-    int forecast_type_id;
+    Zodiac zodiac;
 
     Date date;
 
     String text;
 
     String biorhythm;
+
+    public String toString()
+    {
+        return this.getClass().getSimpleName() + " " +
+                "date: " + date + "; " +
+                "zodiac: " + zodiac.toString();
+    }
 }
