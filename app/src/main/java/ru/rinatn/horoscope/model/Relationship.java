@@ -1,12 +1,9 @@
 package ru.rinatn.horoscope.model;
 
-import java.util.Date;
-
-import lombok.Builder;
 import lombok.Data;
 
 @Data
-public class Zodiac
+public class Relationship
 {
     int id;
 
@@ -14,7 +11,7 @@ public class Zodiac
 
     String title_en;
 
-    public Zodiac(int id, String title_ru, String title_en)
+    public Relationship(int id, String title_ru, String title_en)
     {
         this.id = id;
         this.title_ru = title_ru;

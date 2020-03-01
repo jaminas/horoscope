@@ -8,6 +8,8 @@ import androidx.lifecycle.ViewModel;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -21,29 +23,30 @@ import ru.rinatn.horoscope.service.ZodiacService;
 
 public class ForecastViewModel extends ViewModel implements Callback<List<ForecastJson>>
 {
-    MutableLiveData<Forecast> ld_forecast;
+    MutableLiveData<List<Forecast>> forecasts;
 
-    int zodiac_id = 1;
+    public final static int INDEX_PREVIOS = 0;
+    public final static int INDEX_CURRENT = 1;
+    public final static int INDEX_NEXT    = 2;
 
-    static final int LOCALE_ID = 3;
-
+    static final int zodiac_id   = 1;
+    static final int LOCALE_ID   = 3;
     static final int CATEGORY_ID = 1;
-
-    static final int TYPE_ID = 1;
+    static final int TYPE_ID     = 1;
 
     static final SimpleDateFormat SDF = new SimpleDateFormat("yyyy-MM-dd");
     static final SimpleDateFormat SDFO = new SimpleDateFormat("yyyy-M-d");
 
-    public LiveData<Forecast> getData()
+    public LiveData<List<Forecast>> getData()
     {
-        if (ld_forecast == null)
+        if (forecasts == null)
         {
-            ld_forecast = new MutableLiveData<>();
+            forecasts = new MutableLiveData<>();
             ApiService api_service = new ApiService();
             Call<List<ForecastJson>> fcall = api_service.getForecasts(new Date(), LOCALE_ID, zodiac_id);
             fcall.enqueue(this);
         }
-        return ld_forecast;
+        return forecasts;
     }
 
     @Override
@@ -52,15 +55,31 @@ public class ForecastViewModel extends ViewModel implements Callback<List<Foreca
         if(response.isSuccessful())
         {
             Date cur_date = new Date();
+
+            Calendar pcal = Calendar.getInstance();
+            pcal.setTime(cur_date);
+            pcal.add(Calendar.DATE, 1);
+            Date previos_date = pcal.getTime();
+
+            Calendar ncal = Calendar.getInstance();
+            ncal.setTime(cur_date);
+            ncal.add(Calendar.DATE, -1);
+            Date next_date = ncal.getTime();
+
+            List<Forecast> result = new ArrayList();
+            result.add(INDEX_PREVIOS, null);
+            result.add(INDEX_CURRENT, null);
+            result.add(INDEX_NEXT, null);
+
             for(ForecastJson fore : response.body())
             {
                 Log.i("RLOG", fore.toString());
 
                 Date for_date = this.getDate(fore.getDate());
                 if (
-                    fore.getCategory_id() == CATEGORY_ID
+                    fore.getCategory_id()         == CATEGORY_ID
                     && fore.getForecast_type_id() == TYPE_ID
-                    && SDF.format(cur_date).equals(SDF.format(for_date))
+                    && fore.getLocale_id()        == LOCALE_ID
                 ) {
                     Forecast forecast = new Forecast();
                     forecast.setDate(for_date);
@@ -68,18 +87,28 @@ public class ForecastViewModel extends ViewModel implements Callback<List<Foreca
                     forecast.setText(fore.getText());
                     forecast.setBiorhythm(fore.getBiorhythm());
 
-                    ld_forecast.postValue(forecast);
+                    if (SDF.format(cur_date).equals(SDF.format(for_date)))
+                    {
+                        result.set(INDEX_CURRENT, forecast);
+                    }
+                    else if (SDF.format(previos_date).equals(SDF.format(for_date)))
+                    {
+                        result.set(INDEX_PREVIOS, forecast);
+                    }
+                    else if (SDF.format(next_date).equals(SDF.format(for_date)))
+                    {
+                        result.set(INDEX_NEXT, forecast);
+                    }
 
-                    Log.i("RLOG", forecast.toString());
-                    break;
+                    Log.i("RLOG+", "" + result.size());
                 }
             }
+            forecasts.postValue(result);
 
         }
         else
         {
             Log.w("RLOG", "Request isn't successfull. " + response.errorBody().toString());
-
         }
     }
 

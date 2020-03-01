@@ -6,22 +6,14 @@
     android:background="@drawable/back"
     >
 
-    <TextView
-        android:id="@+id/title"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/flist"
+        android:scrollbars="vertical"
+        app:layoutManager="LinearLayoutManager"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textAlignment="center"
-        android:textSize="20sp"
-        android:text="знак зодиака"
-        />
+        android:layout_height="match_parent"
+        android:orientation="horizontal"/>
 
-    <TextView
-        android:id="@+id/text"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/title"
-        android:text="описание предсказания"
-        android:textSize="20sp" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_menu"
@@ -34,5 +26,7 @@
         app:itemTextColor="@color/bottom_menu_item_background_colors"
         app:menu="@menu/bottom_menu"
         />
+
+
 
 </RelativeLayout>

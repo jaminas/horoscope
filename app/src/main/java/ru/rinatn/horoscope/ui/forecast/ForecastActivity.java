@@ -6,6 +6,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,6 +15,9 @@ import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import ru.rinatn.horoscope.R;
 import ru.rinatn.horoscope.model.Forecast;
@@ -22,18 +27,16 @@ import ru.rinatn.horoscope.ui.profile.ProfileActivity;
 
 public class ForecastActivity extends AppCompatActivity
 {
-    TextView title;
+    private RecyclerView flist;
 
-    TextView text;
+    private RecyclerView.Adapter flistAdapter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forecast);
-
-        title = findViewById(R.id.title);
-        text = findViewById(R.id.text);
 
         BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_menu);
 
@@ -70,15 +73,19 @@ public class ForecastActivity extends AppCompatActivity
         }
         else
         {
+            flist = (RecyclerView) findViewById(R.id.flist);
+            flist.setHasFixedSize(true);
+            flist.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+
+
             final ForecastViewModel view_model = ViewModelProviders.of(this).get(ForecastViewModel.class);
-            LiveData<Forecast> data = view_model.getData();
-            data.observe(this, new Observer<Forecast>()
+            view_model.getData().observe(this, new Observer<List<Forecast>>()
             {
                 @Override
-                public void onChanged(@Nullable Forecast fore)
+                public void onChanged(@Nullable List<Forecast> forecasts)
                 {
-                    title.setText(fore.getZodiac().getTitle());
-                    text.setText(fore.getText());
+                    flistAdapter = new FlistAdapter(forecasts);
+                    flist.setAdapter(flistAdapter);
                 }
             });
 

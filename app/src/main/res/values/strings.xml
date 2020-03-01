@@ -27,16 +27,11 @@
 
     <string name="username">Ваше имя</string>
     <string name="birthdate">Дата рождения</string>
+    <string name="zodiac">Знак зодиака</string>
     <string name="hour">Час</string>
     <string name="minute">Минута</string>
     <string name="sex">Пол</string>
-    <string name="male">Мужчина</string>
-    <string name="female">Женщина</string>
     <string name="relationship">Семейное положение</string>
-    <string name="rs_single">Одинокий(ая)</string>
-    <string name="rs_married">Женат/Замежем</string>
-    <string name="rs_devorced">Разведен(а)</string>
-    <string name="rs_relationship">В отношениях</string>
 
     <string name="save">Сохранить</string>
 </resources>

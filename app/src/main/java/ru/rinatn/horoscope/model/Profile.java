@@ -3,8 +3,6 @@ package ru.rinatn.horoscope.model;
 import java.util.Date;
 
 import lombok.Data;
-import ru.rinatn.horoscope.model.enums.Relationship;
-import ru.rinatn.horoscope.model.enums.Sex;
 
 @Data
 public class Profile
@@ -17,9 +15,11 @@ public class Profile
 
     Integer birthminute;
 
-    Sex sex;
+    Integer zodiac;
 
-    Relationship relationship;
+    Integer sex;
+
+    Integer relationship;
 
     Integer country_id;
 

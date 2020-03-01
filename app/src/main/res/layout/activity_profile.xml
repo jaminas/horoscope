@@ -9,100 +9,62 @@
     android:orientation="vertical"
     >
 
-    <com.google.android.material.textfield.TextInputLayout
+    <EditText
         android:id="@+id/username"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:hint="@string/username"
+        />
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/username" />
-    </com.google.android.material.textfield.TextInputLayout>
 
     <EditText
         android:id="@+id/birthdate"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/username"
         android:inputType="date"
+        android:ems="10"
+        android:hint="@string/birthdate"
         />
 
-    <EditText
-        android:id="@+id/hour"
-        android:layout_width="50dp"
-        android:layout_height="wrap_content"
-        android:inputType="numberSigned"
-        android:hint="@string/hour"
-        />
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-    <EditText
-        android:id="@+id/minute"
-        android:layout_width="50dp"
-        android:layout_height="wrap_content"
-        android:inputType="numberSigned"
-        android:hint="@string/minute"
-        />
+        <EditText
+            android:id="@+id/birthhour"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:inputType="numberSigned"
+            android:hint="@string/hour"
+            />
 
-    <RadioGroup
+        <EditText
+            android:id="@+id/birthminute"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:inputType="numberSigned"
+            android:hint="@string/minute"
+            />
+    </LinearLayout>
+
+    <Spinner
+        android:id="@+id/zodiac"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        >
+        android:hint="@string/zodiac"/>
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/sex" />
-
-        <RadioButton
-            android:id="@+id/male"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/male" />
-
-        <RadioButton
-            android:id="@+id/female"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/female" />
-
-    </RadioGroup>
-
-    <RadioGroup
+    <Spinner
+        android:id="@+id/sex"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        >
+        android:hint="@string/sex"/>
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/relationship" />
-
-        <RadioButton
-            android:id="@+id/single"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/rs_single" />
-
-        <RadioButton
-            android:id="@+id/relationship"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/rs_relationship" />
-
-        <RadioButton
-            android:id="@+id/married"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/rs_married" />
-
-        <RadioButton
-            android:id="@+id/devorced"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/rs_devorced" />
-
-    </RadioGroup>
+    <Spinner
+        android:id="@+id/relationship"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/relationship"/>
 
     <Button
         android:id="@+id/save"
