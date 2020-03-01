@@ -72,7 +72,7 @@ public class ProfileActivity extends AppCompatActivity
         birthdate.setInputType(InputType.TYPE_NULL);
         birthdate.setOnClickListener(new View.OnClickListener()
         {
-            @Override
+            @Override 
             public void onClick(View v)
             {
                 final Calendar cldr = Calendar.getInstance();
